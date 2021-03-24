@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import SearchBarByTitle from './Component/searchBar';
-import SearchBarByYear from './Component/searchByYear';
+import SearchBarByYear from './Component/searchCharacter';
 
 function App() {
   return (

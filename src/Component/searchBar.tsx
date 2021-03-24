@@ -1,6 +1,7 @@
 import * as React from 'react'
 import styled from 'styled-components'
 import { gql, useQuery } from '@apollo/client'
+import { PageForName } from '../Type'
 
 const Button = styled.button`
     display      : inline-block;
@@ -20,6 +21,15 @@ const Input = styled.input`
     border-radius: 5px;
 `
 
+const Table = styled.table`
+    border-collapse: collapse;
+   margin-left: 50px;
+    width: 90%
+`
+const Tr = styled.tr`
+border: 1px solid white;
+`
+
 const GET_NAME = gql`
     query GetNames ($search : String!){
         Page(page: 1, perPage: 10){
@@ -35,76 +45,54 @@ const GET_NAME = gql`
 }
 `
 
-// const GET_NAME = gql`
-//     query GetNames{
-//         Page(page:1, perPage: 10){
-//             media(search: "eva" ){
-//                 id
-//                 genres
-//                 title {
-//                     romaji
-//                     native
-//                 }
-//         }
-//     }
-// }
-// `
-
-// export interface PageData {
-//     media: [],
-//     __typename: String
-// }
-interface Media {
-    id: number,
-    genres: [],
-    title: {}
-}
-interface Page {
-    Page: {
-        media: Media[],
-        __typename: string
-    }
-}
 
 const SearchBarByTitle = () => {
 
-    const [thisTitle, setTitle] = React.useState('')
-    const { loading, error, data } = useQuery<Page>(GET_NAME, {
-        variables: { search: thisTitle },
+    const [thisTitle, setTitle]    = React.useState('')
+    const { loading, error, data } = useQuery<PageForName>(GET_NAME, {
+        variables   : { search: thisTitle },
         pollInterval: 500,
     })
-    // const { loading, error, data } = useQuery(GET_NAME)
     
-    const [isOpen, setOpen] = React.useState(false)
    
     const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
         setTitle(e.target.value)
         
     }
 
-    const getAnime = () => {
-        setOpen(true);
-    }
-
-    console.log('hhh', thisTitle, data)
+    // console.log('hhh', thisTitle, data)
   
     return(
         <>
-        <form>
-            <Input
-            type = 'text'
-            onChange={changeHandler}
-            value={thisTitle}
-            />
-            <Button
-            // onClick={getAnime}
-            >Search by title</Button>
-        </form>
-        
-        {loading? <p>Loading...</p> : (
-            <p>{data && data.Page.media.map( i => <tr><td>{i.id}</td></tr>)}</p>
-        )}
-        {error? <p>{`Error! ${error}`}</p> : null }
+            <form>
+                <Button>Search by title</Button>
+                <Input
+                type     = 'text'
+                onChange = {changeHandler}
+                value    = {thisTitle}
+                />
+            </form>
+            
+            {loading? <p>Loading...</p> : (<>
+                <Table>
+                     <Tr>
+                        <th>id</th>
+                        <th>Name</th>
+                        <th>romaji Name</th>
+                        <th>Genres</th>
+                    </Tr>
+                {data && data.Page.media.map( i => 
+                    <Tr>
+                        <td>{i.id}</td>
+                        <td>{i.title.native}</td>
+                        <td>{i.title.romaji}</td>
+                        <td>{i.genres}</td>
+                    </Tr>
+                )}
+                </Table>
+                </>
+            )}
+            {error? <p>{`Error! ${error}`}</p> : null }
         </>
     )
 }

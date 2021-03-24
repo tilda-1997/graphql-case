@@ -6,7 +6,7 @@ import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 const cache = new InMemoryCache({
   typePolicies: {
     Page: {
-      keyFields:[["id"]],
+      keyFields:[["id"],["id"]],
       // fields: {
       //   media: {
       //     merge(existing, incoming) {
