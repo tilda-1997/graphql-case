@@ -1,5 +1,6 @@
 import * as React from 'react'
 import styled from 'styled-components'
+import { gql, useQuery } from '@apollo/client'
 
 const Button = styled.button`
     display      : inline-block;
@@ -19,19 +20,93 @@ const Input = styled.input`
     border-radius: 5px;
 `
 
-const SearchBar: React.FC = () => {
+const GET_NAME = gql`
+    query GetNames ($search : String!){
+        Page(page: 1, perPage: 10){
+            media(search: $search){
+                id
+                genres
+                title {
+                    romaji
+                    native
+                }
+        }
+    }
+}
+`
+
+// const GET_NAME = gql`
+//     query GetNames{
+//         Page(page:1, perPage: 10){
+//             media(search: "eva" ){
+//                 id
+//                 genres
+//                 title {
+//                     romaji
+//                     native
+//                 }
+//         }
+//     }
+// }
+// `
+
+// export interface PageData {
+//     media: [],
+//     __typename: String
+// }
+interface Media {
+    id: number,
+    genres: [],
+    title: {}
+}
+interface Page {
+    Page: {
+        media: Media[],
+        __typename: string
+    }
+}
+
+const SearchBarByTitle = () => {
+
+    const [thisTitle, setTitle] = React.useState('')
+    const { loading, error, data } = useQuery<Page>(GET_NAME, {
+        variables: { search: thisTitle },
+        pollInterval: 500,
+    })
+    // const { loading, error, data } = useQuery(GET_NAME)
+    
+    const [isOpen, setOpen] = React.useState(false)
+   
+    const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setTitle(e.target.value)
+        
+    }
+
+    const getAnime = () => {
+        setOpen(true);
+    }
+
+    console.log('hhh', thisTitle, data)
+  
     return(
         <>
         <form>
             <Input
             type = 'text'
-            // onChange={myChangeHandler}
+            onChange={changeHandler}
+            value={thisTitle}
             />
-            <Button>Search by name</Button>
-
+            <Button
+            // onClick={getAnime}
+            >Search by title</Button>
         </form>
+        
+        {loading? <p>Loading...</p> : (
+            <p>{data && data.Page.media.map( i => <tr><td>{i.id}</td></tr>)}</p>
+        )}
+        {error? <p>{`Error! ${error}`}</p> : null }
         </>
     )
 }
 
-export default SearchBar
+export default SearchBarByTitle

@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
-import SearchBar from './Component/searchBar';
+import SearchBarByTitle from './Component/searchBar';
+import SearchBarByYear from './Component/searchByYear';
 
 function App() {
   return (
@@ -8,7 +9,8 @@ function App() {
       <header className = "App-header">
         <h1> GraphQL Case</h1>
         <p>This site uses the offical API named AniList, which contains anime and manga datum.</p>
-        <SearchBar />
+        <SearchBarByTitle />
+        <SearchBarByYear />
       </header>
     </div>
   );
