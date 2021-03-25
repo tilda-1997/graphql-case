@@ -22,8 +22,8 @@ const Input = styled.input`
 
 const Table = styled.table`
     border-collapse: collapse;
-   margin-left: 50px;
-    width: 90%
+    margin-left    : 50px;
+    width          : 90%
 `
 const Tr = styled.tr`
     border: 1px solid white;
@@ -31,8 +31,8 @@ const Tr = styled.tr`
 
 
 const GET_Character = gql`
-    query GetCharacter {
-        Page(page:1, perPage: 10){
+    query GetCharacter  ($search : String!) {
+        Page(page:1, perPage: 5){
             characters(search: $search){
                 id
                 name {
@@ -40,9 +40,9 @@ const GET_Character = gql`
                   native
                 }
                 description
-              }
+            }
+        }
     }
-}
 `
 
 const SearchBarByYear: React.FC = () => {
@@ -50,24 +50,26 @@ const SearchBarByYear: React.FC = () => {
     const [thisCha, setCha] = React.useState('')
 
     const { loading, error, data } = useQuery<PageForCharacter>(GET_Character, {
-        variables   : { search: thisCha },
-        pollInterval: 500,
+        variables: { search: thisCha },
+        // pollInterval: 600,
     })
     
 
     const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
         setCha(e.target.value)
     }
-    
+
+    console.log("shi", thisCha, data)
+
 
     return(
         <>
         <form>
             <Button>Search by Character Name</Button>
             <Input
-            type = 'text'
-            onChange={changeHandler}
-            value={thisCha}
+            type     = 'text'
+            onChange = {changeHandler}
+            value    = {thisCha}
             />
         </form>
 
