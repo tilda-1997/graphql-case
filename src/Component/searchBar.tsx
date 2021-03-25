@@ -27,7 +27,7 @@ const Table = styled.table`
     width: 90%
 `
 const Tr = styled.tr`
-border: 1px solid white;
+    border: 1px solid white;
 `
 
 const GET_NAME = gql`
@@ -60,8 +60,6 @@ const SearchBarByTitle = () => {
         
     }
 
-    // console.log('hhh', thisTitle, data)
-  
     return(
         <>
             <form>
