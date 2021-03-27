@@ -1,5 +1,4 @@
-import * as React from 'react'
-import { InputRadio, Label } from './styled'
+import { InputRadio, Label } from '../styled'
 
 const SearchType = () => {
 

@@ -1,7 +1,7 @@
 import * as React from 'react'
 import styled from 'styled-components'
 import { gql, useQuery } from '@apollo/client'
-import { PageForName } from '../Type'
+import { PageForName } from '../../Type'
 
 const Button = styled.button`
     display      : inline-block;

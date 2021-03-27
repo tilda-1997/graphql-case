@@ -1,16 +1,16 @@
-import MediaOption from './level2_Media'
-import SearchType from './optionLevel1'
+import MediaOption from './Tree/level2_Media'
+import SearchType from './Tree/optionLevel1'
 import { Grid } from './styled'
-import CharacterOption from './level2_Character'
+import CharacterOption from './Tree/level2_Character'
 import TypeFilter from './filter'
 
 const DynamicSearch = () => {
 
     return(
         <Grid>
-            <div><SearchType /></div>
+            {/* <div><SearchType /></div>
             <MediaOption />
-            <CharacterOption />
+            <CharacterOption /> */}
 
             <TypeFilter />
     

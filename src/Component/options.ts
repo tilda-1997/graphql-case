@@ -1,7 +1,12 @@
-import * as React from 'react'
-import Select from 'react-select';
+export const seasonOptions = [
+    { value: 'SPRING', label: 'SPRING' },
+    { value: 'SUMMER', label: 'SUMMER' },
+    { value: 'AUTUMN', label: 'AUTUMN' },
+    { value: 'WINTER', label: 'WINTER' },
+]
 
-const yearOptions = [
+
+export const yearOptions = [
     { value: '2020', label: '2020' },
     { value: '2019', label: '2019' },
     { value: '2018', label: '2018' },
@@ -34,20 +39,3 @@ const yearOptions = [
     { value: '1991', label: '1991' },
     { value: '1990', label: '1990' },
   ];
-
-const TypeFilter = () => {
-
-    return(
-        <>
-        <p>Year</p>
-            <Select
-            // value={selectedOption}
-            // onChange={this.handleChange}
-            options={yearOptions}
-            />
-
-        </>
-    )
-}
-
-export default TypeFilter
