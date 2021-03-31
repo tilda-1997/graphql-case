@@ -9,9 +9,10 @@ export const Label = styled.label`
 `
 
 export const Grid = styled.div`
-    display: grid;
-    grid-template-columns: [start] 15% [line1] 15% [line2] auto [line3] auto [end];
-    grid-template-rows: [row] auto [row1];
+    font: Optima;
+    display              : grid;
+    grid-template-columns: [start] 25% [line1] 25% [line2] 25% [line3] 25% [end];
+    grid-template-rows   : [row] auto [row1] auto [row2];
 `
 // @media all and (max-width: 768px) {
 //     display: grid;
@@ -24,6 +25,36 @@ export const Option = styled.div`
 `
 
 export const OptionNames =  styled.p`
-    color: #F9FFD2;
+    color : #FCEEB9;
     margin: 0.5rem
+`
+export const Input = styled.input`
+    width        : 20rem;
+    height       : 2rem;
+    border-radius: 5px;
+`
+
+export const Div = styled.div`
+    padding: 1rem 2rem;
+    display              : grid;
+    grid-template-columns: [start] 40% [line] auto [end];
+    grid-template-rows   : [row] auto [row1] ;
+    font-family: Garamond, serif;
+`
+
+export const Li = styled.li`
+    color: #E6E9EB;
+`
+
+export const Ul = styled.ul`
+    font-size: 15px
+`
+
+export const Link = styled.a`
+    text-decoration: none;
+    color: #E6E9EB
+`
+
+export const Pp = styled.p` 
+    color: #FEF7D7
 `
