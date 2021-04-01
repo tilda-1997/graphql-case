@@ -108,7 +108,7 @@ const CharacterFilter = () => {
                         &nbsp; Source: {i.media.nodes[0].title.native} <br/>
                         &nbsp; Role: {i.media.edges[0].characterRole}
                     </>): null } <br/>
-                    <Link href={i.siteUrl}> &nbsp; AniLink...</Link>
+                    <Link href={i.siteUrl}> &nbsp; &rarr; AniLink...</Link>
                     </Pp>
                 </Div>
             )
