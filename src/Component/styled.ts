@@ -58,3 +58,7 @@ export const Link = styled.a`
 export const Pp = styled.p` 
     color: #FEF7D7
 `
+
+export const Intro = styled.div`
+    text-align: center; 
+`

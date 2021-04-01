@@ -1,7 +1,7 @@
 import * as React from 'react'
 import Select from 'react-select';
 import { yearOptions, seasonOptions } from './options'
-import { Option, OptionNames, Input, Div, Li , Ul, Pp } from './styled';
+import { Option, OptionNames, Input, Div, Li , Ul, Pp, Link } from './styled';
 import { gql, useQuery } from '@apollo/client'
 
 const customStyle = {
@@ -38,20 +38,16 @@ const GET_MEDIA = gql`
 
 
 const TypeFilter = () => {
-
     const [ seaMedia, setSeaMedia ] = React.useState('')
     const [ filters, setFilters ] = React.useState({
-        year:'',
-        season:'',
+        year: null,
+        season: '',
         search: seaMedia
     })
-
+    const [ filterForGql, setFilterForGql ] = React.useState({})
     
-
     const { loading, error, data } = useQuery(GET_MEDIA, {
-        variables   : { 
-            filters
-        },
+        variables   : filterForGql,
         pollInterval: 500,
     })
     
@@ -65,7 +61,33 @@ const TypeFilter = () => {
         }))
       }
 
-    console.log(filters, seaMedia, 'data', data)
+
+    console.log(seaMedia, filters,'final', filterForGql,  'data', data)
+
+    React.useEffect(() => {
+        if (filters.year !== null) {
+            setFilterForGql(
+                prevState => ({
+                    ...prevState,
+                  seasonYear: filters.year
+                }))
+        }
+        if (filters.season !== '') {
+            setFilterForGql(
+                prevState => ({
+                    ...prevState,
+                  season: filters.season
+                }))
+        }
+        if (seaMedia !== '') {
+            setFilterForGql(
+                prevState => ({
+                    ...prevState,
+                  search: seaMedia
+                }))
+        }
+
+    }, [filters, seaMedia])
 
 
     return(
@@ -107,7 +129,8 @@ const TypeFilter = () => {
                         <Pp> &nbsp;{i.title.native} <br />
                         &nbsp; {i.seasonYear} &nbsp; {i.season} <br />
                         &nbsp; Type: {i.type} <br />
-                        &nbsp; Genres: {i.genres.map( g => <> &bull; {g} </>)}
+                        &nbsp; Genres: {i.genres.map( g => <> &bull; {g} </>)} <br />
+                        {i.trailer? <Link href={i.trailer.thumbail} >  &nbsp; Trailer: {i.trailer.site} </Link> : null}
                         </Pp>
                     </Div>
                 )

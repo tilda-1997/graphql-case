@@ -5,6 +5,7 @@ export const searchTypes = [
 ]
 
 export const seasonOptions = [
+    { value: null , label: '' },
     { value: 'SPRING', label: 'Spring' },
     { value: 'SUMMER', label: 'Summer' },
     { value: 'AUTUMN', label: 'Autumn' },
@@ -13,6 +14,7 @@ export const seasonOptions = [
 
 
 export const yearOptions = [
+    { value: null, label: '' },
     { value: 2020, label: '2020' },
     { value: 2019, label: '2019' },
     { value: 2018, label: '2018' },
